@@ -55,6 +55,7 @@ const states = {
 	wisconsin: 'WI',
 	wyoming: 'WY'
 }
+//The api url
 const url = 'https://randomuser.me/api/?results=12&nat=us';
 /************Add Search Field*******************/
 const searchContainer = document.querySelector(".search-container");
@@ -93,7 +94,7 @@ function createProfileCards(data) {
 	});
 }
 /*Function to create modal window*/
-function createModal(profile, dataResults) { //data results are all of the twelve 
+function createModal(profile, dataResults) { //data results are all of the twelve randomly selected user profiles from the api request
 	const body = document.querySelector('body');
 	const modalWindow = document.createElement('DIV');
 	if (document.querySelector('.modal-container')) {
@@ -131,11 +132,12 @@ function scrollModal(profile, dataResults){
 	let profileIndex = dataResults.indexOf(profile);
 	const modalNext = document.querySelector("#modal-next");
 	const modalPrev = document.querySelector('#modal-prev');
+	//Event listeners to scroll to next or previous profile modal
 	modalNext.addEventListener('click', () => {
 		if ((profileIndex + 1) < totalProfiles) {
 			createModal(dataResults[profileIndex + 1], dataResults);
 		} else {
-			createModal(dataResults[0], dataResults); //This resets the modal to 0 after
+			createModal(dataResults[0], dataResults); //This resets the modal to 0 after crolling through end of modals
 		}
 	});
 	modalPrev.addEventListener('click', () => {
@@ -160,7 +162,7 @@ function formatDOB(birthday) {
 	let dob = `${birthdayMonth}/${birthdayDay}/${birthdayYear}`
 	return dob;
 }
-
+//Function to set the state abbeviations in the modal profile view
 function stateAbbreviation(state) {
 	let stateAbr = states[state];
 	return stateAbr;
@@ -168,6 +170,7 @@ function stateAbbreviation(state) {
 /**
 //Search Functionality 
 **/
+//function to filter names in the search field
 function filterByName(event) {
 	event.preventDefault();
 	let nameSearch = searchField.value.toLowerCase();
@@ -202,10 +205,11 @@ function closeModalBtn() {
 		if (event.target === modalContainer || event.target === closeModalButton) modalContainer.remove();
 	});
 }
-
+//a submission event listener to search for names entered in the search field
 searchContainer.addEventListener('submit', function(event) {
 	filterByName(event);
 });
+//a keuUp() event listener method to find results in real time as they are entered into the search field
 searchContainer.addEventListener('keyup', function(event) {
 	filterByName(event);
 });
