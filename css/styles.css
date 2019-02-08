@@ -16,7 +16,11 @@ html, body {
 body {
     font-family: "Nunito", sans-serif;
     text-align: center;
-    background: rgba(235, 235, 235, 0.9);
+/*background: rgba(235, 235, 235, 0.9);*/
+	background-image: url("../images/seattle_background.jpg");
+	background-repeat: no-repeat;
+	background-attachment:fixed;
+	background-size:cover;
 }
 
 header {
@@ -92,6 +96,10 @@ header h1 {
     border: 1px solid rgba(50, 50, 50, 0.3);
     transition: .4s ease-out;
     overflow: hidden;
+}
+
+.card:hover{
+	box-shadow: 10px 10px 10px 10px;
 }
 
 .card-img {
@@ -250,6 +258,7 @@ header h1 {
     .card:hover {
         background: rgba(255, 255, 255, 1);
         border: 1px solid rgba(50, 50, 50, 0.9);
+		box-shadow: 10px 10px 10px 10px;
     }
 
     .card:hover .card-text {
