@@ -66,13 +66,17 @@ searchContainer.innerHTML = `<form action="#" method="get">
 const searchField = document.getElementById('search-input');
 const gallery = document.getElementById('gallery');
 const profileCards = gallery.children;
+/*These DOM elements will be used int he to display a no results indication if no profiles are found in search field */
+const headerTextContainer = document.querySelector(".header-text-container");
+const noResultsHeader = document.createElement("h3");
+noResultsHeader.setAttribute("id", "noResults");
+headerTextContainer.appendChild(noResultsHeader);
+const noResults = document.querySelector("#noResults");
 //Fetch functions
 function fetchData(url) {
-	return fetch(url)
-		.then(res => res.json())
+	return fetch(url).then(res => res.json())
 }
-fetchData(url)
-	.then(data => {
+fetchData(url).then(data => {
 	createProfileCards(data.results);
 	displayModal(data.results);
 });
@@ -80,7 +84,7 @@ fetchData(url)
 function createProfileCards(data) {
 	const gallery = document.getElementById('gallery');
 	data.forEach(data => {
-		const galleryElements = `<div class="card" id='${data}'>
+		const galleryElements = `<div class="card">
                                <div class="card-img-container">
                                    <img class="card-img" src="${data.picture.large}" alt="profile picture">
                                </div>
@@ -119,14 +123,13 @@ function createModal(profile, dataResults) { //data results are all of the twelv
                                 <button type="button" id="modal-next" class="modal-next btn">Next</button>
                            </div>
                         `;
-						
 	body.appendChild(modalWindow);
 	// event click to close modalWindow
 	closeModalBtn();
 	scrollModal(profile, dataResults);
 }
 //This function scrolls through the different profiles in modal view
-function scrollModal(profile, dataResults){
+function scrollModal(profile, dataResults) {
 	const indvProfile = document.querySelectorAll(".card");
 	const totalProfiles = indvProfile.length;
 	let profileIndex = dataResults.indexOf(profile);
@@ -178,8 +181,10 @@ function filterByName(event) {
 		let profileName = profileCards[i].innerText.toLowerCase();
 		if (profileName.includes(nameSearch)) {
 			profileCards[i].style.display = "flex";
+			noResults.innerText = " ";
 		} else {
 			profileCards[i].style.display = "none";
+			noResults.innerText = "no results found";
 		}
 	}
 }
