@@ -66,6 +66,8 @@ searchContainer.innerHTML = `<form action="#" method="get">
 const searchField = document.getElementById('search-input');
 const gallery = document.getElementById('gallery');
 const profileCards = gallery.children;
+const cards = document.querySelectorAll(".card");
+console.log(cards.length);
 /*These DOM elements will be used int he to display a no results indication if no profiles are found in search field */
 const headerTextContainer = document.querySelector(".header-text-container");
 const noResultsHeader = document.createElement("h3");
@@ -140,7 +142,7 @@ function scrollModal(profile, dataResults) {
 		if ((profileIndex + 1) < totalProfiles) {
 			createModal(dataResults[profileIndex + 1], dataResults);
 		} else {
-			createModal(dataResults[0], dataResults); //This resets the modal to 0 after crolling through end of modals
+			createModal(dataResults[0], dataResults); //This resets the modal to 0 after scrolling through end of modals
 		}
 	});
 	modalPrev.addEventListener('click', () => {
@@ -176,6 +178,7 @@ function stateAbbreviation(state) {
 //function to filter names in the search field
 function filterByName(event) {
 	event.preventDefault();
+	let noResultsArray = [];
 	let nameSearch = searchField.value.toLowerCase();
 	for (let i = 0; i < profileCards.length; i++) {
 		let profileName = profileCards[i].innerText.toLowerCase();
@@ -184,7 +187,11 @@ function filterByName(event) {
 			noResults.innerText = " ";
 		} else {
 			profileCards[i].style.display = "none";
-			noResults.innerText = "no results found";
+			noResultsArray.push(profileCards[i]);
+			console.log("no Results Array" + noResultsArray);	
+		}
+		if (noResultsArray.length === 12){
+			noResults.innerHTML = "no results found";
 		}
 	}
 }
