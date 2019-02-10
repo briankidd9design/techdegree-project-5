@@ -66,8 +66,6 @@ searchContainer.innerHTML = `<form action="#" method="get">
 const searchField = document.getElementById('search-input');
 const gallery = document.getElementById('gallery');
 const profileCards = gallery.children;
-const cards = document.querySelectorAll(".card");
-console.log(cards.length);
 /*These DOM elements will be used int he to display a no results indication if no profiles are found in search field */
 const headerTextContainer = document.querySelector(".header-text-container");
 const noResultsHeader = document.createElement("h3");
@@ -188,9 +186,8 @@ function filterByName(event) {
 		} else {
 			profileCards[i].style.display = "none";
 			noResultsArray.push(profileCards[i]);
-			console.log("no Results Array" + noResultsArray);	
 		}
-		if (noResultsArray.length === 12){
+		if (noResultsArray.length === 12) {
 			noResults.innerHTML = "no results found";
 		}
 	}
